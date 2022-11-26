@@ -10,9 +10,9 @@ public class Triangle : MonoBehaviour
     [SerializeField] Vector3[] basePoints;
     [SerializeField] List<Vector3> points;
     [SerializeField] int[] triangle;
-
+    [SerializeField] Color[] colors;
+    [SerializeField] Transform[] vertex;
     Mesh mesh;
-
     private void Awake()
     {
         mesh = GetComponent<MeshFilter>().mesh;
@@ -20,6 +20,13 @@ public class Triangle : MonoBehaviour
         mesh.SetTriangles(triangle,0);
         points = new(basePoints);
         mesh.SetVertices(points);
+
+        int i = 0;
+        foreach(Transform t in vertex)
+        {
+            t.GetComponent<MeshRenderer>().material.color = colors[i];
+            i++;
+        }
     }
 
 
@@ -64,7 +71,8 @@ public class Triangle : MonoBehaviour
                 y = Ayx * px + Ayy * py + Ayz * pz,
                 z = Azx * px + Azy * py + Azz * pz
             };
-
+            
+            vertex[i].position = transform.position + pointRotation;
             points[i] = pointRotation;
         }
 
