@@ -16,7 +16,6 @@ public class Goal : MonoBehaviour
     private void Start()
     {
         gameManager = GameManager.instance;
-
         triangle = GetComponent<Triangle>();
         
         if(!player)

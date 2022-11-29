@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         time = maxTime;
+        Time.timeScale = 1;
     }
     private void Update()
     {

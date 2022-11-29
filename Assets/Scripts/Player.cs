@@ -19,11 +19,15 @@ public class Player : MonoBehaviour
             SceneManager.LoadScene(0);
         }
 
-        if ((Input.GetButton("Horizontal") ||
+        if (Input.GetButton("Jump"))
+            _speed = speed * 0.3f;
+        else if ((Input.GetButton("Horizontal") ||
             Input.GetButton("Vertical")) && _speed <= terminalVelocity)
             _speed += accereration;
-        else
+        else 
             _speed = speed;
+
+
 
         rotation.x += Input.GetAxisRaw("Horizontal") * _speed * Time.deltaTime;
         float maxAngle = 6.3f;
