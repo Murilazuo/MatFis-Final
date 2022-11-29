@@ -11,6 +11,7 @@ public class Triangle : MonoBehaviour
     [SerializeField] List<Vector3> points;
     [SerializeField] int[] triangle;
     [SerializeField] Color[] colors;
+    [SerializeField] Transform[] verticesTransform;
     Mesh mesh;
     private void Awake()
     {
@@ -19,6 +20,11 @@ public class Triangle : MonoBehaviour
         mesh.SetTriangles(triangle,0);
         points = new(basePoints);
         mesh.SetVertices(points);
+
+        int i = 0;
+        if (verticesTransform.Length > 0)
+            foreach(Transform t in verticesTransform)
+                t.GetComponent<Renderer>().material.color = colors[i++];
     }
 
 
@@ -64,6 +70,7 @@ public class Triangle : MonoBehaviour
                 z = Azx * px + Azy * py + Azz * pz
             };
             points[i] = pointRotation;
+            if(verticesTransform.Length > 0) verticesTransform[i].localPosition = pointRotation;
         }
 
         mesh.SetVertices(points);
@@ -102,10 +109,8 @@ public class Triangle : MonoBehaviour
     {
         return base.GetHashCode();
     }
-
     private void OnDrawGizmos()
     {
-
         Color[] color = new Color[3];
         color[0] = Color.blue;
         color[1] = Color.yellow;
